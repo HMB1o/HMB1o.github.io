@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My CS Portfolio</title>
+    
+    <style>
+        :root {
+            --light-blue: #e0f2fe;
+            --soft-pink: #fce4ec;
+            --accent-pink: #f06292;
+            --dark-blue: #0284c7;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-blue);
+            color: #334155;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        nav {
+            background-color: white;
+            width: 100%;
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+        }
+
+        button {
+            background-color: var(--soft-pink);
+            border: 2px solid var(--accent-pink);
+            color: #880e4f;
+            padding: 10px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background-color: var(--accent-pink);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        main {
+            width: 90%;
+            max-width: 800px;
+            margin-top: 40px;
+        }
+
+        /* All pages are hidden by default */
+        .page {
+            display: none; 
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Show this specific class via JS */
+        .active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 { color: var(--accent-pink); border-bottom: 2px solid var(--light-blue); padding-bottom: 10px; }
+        h2 { color: var(--dark-blue); }
+        
+        ul { line-height: 1.8; }
+        .contact-info { background: var(--light-blue); padding: 15px; border-radius: 10px; border-left: 5px solid var(--accent-pink); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <button onclick="showPage('about')">About Me</button>
+        <button onclick="showPage('projects')">Projects</button>
+        <button onclick="showPage('resume')">Resume</button>
+        <button onclick="showPage('contact')">Contact</button>
+    </nav>
+
+    <main>
+        <section id="about" class="page active">
+            <h1>About Me</h1>
+            <p>Welcome! My name is Safiya El-Rahman</p>
+            <p> <strong>I am current 9th grader who is getting into the basics of coding. Here is a little bit about me and what I want to accomplish in the future. At my annual check up, watching my dad juggle paperwork and his insurance card made me realize how inefficient healthcare administration can be. A simple digital documentation app could remove much of this hassle. Inspired by my passion for computer science, I want to develop a platform that enables patients and medical professionals to easily manage critical documents, making healthcare more effcient and accessible for everyone. Imagine if we had a digital documentation app, one that seamlessly stores, organize, and manages all you medical information, eliminating the need for stacks of physical forms and endless signatures. This vision inspires me to combine my passion for computer science with the needs of medical field. I believe the world of Biomedical Engineering is ready for a new wave of innovation, and I am determined to be part of that change. Too many people struggle to access basic medical care because of unnecessary obstacles and ineffciencies. Healthcare is a fundemental right, and simplifying the process is essential to reach everyone who needs help. My goal is to design an intuitive digital platform that empowers both patients and medical professionals to securely send, receive, and edit important documents in real time. By leveraging technology, we can create a healthcare experience that is more accessible, efficient, and compassionate for all.
+ Being a Girl Scout has given me countless opportunities to develop teamwork, leadership, and compassion, qualities that have become central to who I am. Each year, I help organize and lead an annual art event for children with special needs. Through this experience, I’ve learned the importance of patience, creativity, and genuine empathy. Planning activities, collaborating with fellow Scouts, and adapting to each child’s unique needs has taught me how to communicate effectively and support others. I find great joy in bringing people together to create memorable experiences, and these moments have strengthened my belief in the value of service to other and my community. 
+ My dedication to making life easier for others extends beyond these events. Whether I’m volunteering, assisting classmates with their studies, or participating in group projects, I consistently look for ways to help and uplift those around me. These experiences have shown me that my greatest strengths are my ability to connect with people, my willingness to step up when needed, and my commitment to making a positive impact. Working with others and serving my community isn’t just something I do, it’s at the heart of who I am and will continue to guide me in my future career. 
+</strong></p>
+        </section>
+
+        <section id="projects" class="page">
+            <h1>My Projects</h1>
+            <div class="project-item">
+                <h2>Project 1: Personal Portfolio</h2>
+                <p>This project helps with identifying different handwritings to help with medical persciption analysis!</p>
+                <a href="https://teachablemachine.withgoogle.com/models/4-VKyiTcF/">Click here to go to Google</a>
+            </div>
+            <hr>
+            <div class="project-item">
+                <h2>Project 2: Coming Soon</h2>
+                <p>It is a project scanning different medical tools.</p>
+            </div>
+        </section>
+
+        <section id="resume" class="page">
+            <h1>Resume</h1>
+            <h2>Education</h2>
+            <p><strong>High School Freshman</strong> | Class of 2029</p>
+            
+            <h2>Technical Skills</h2>
+            <ul>
+                <li>HTML5 & Structure</li>
+                <li>CSS3 Styling (Flexbox, Transitions)</li>
+                <li>Basic JavaScript (Functions, DOM manipulation)</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="page">
+            <h1>Contact Me</h1>
+            <p>I'd love to connect with other student developers!</p>
+            <div class="contact-info">
+                <p><strong>Email:</strong>elrahman9460@mydusd.org</p>
+                <p><strong>GitHub:</strong> @safiya.elrahman</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function showPage(pageId) {
+            // 1. Find all sections with the class "page"
+            const pages = document.querySelectorAll('.page');
+            
+            // 2. Loop through them and remove the "active" class to hide them
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // 3. Find the specific page clicked and add the "active" class to show it
+            const selectedPage = document.getElementById(pageId);
+            selectedPage.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
