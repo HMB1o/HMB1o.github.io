@@ -116,7 +116,7 @@
 
         .resume-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr; /* Columns to satisfy layout rubric */
+            grid-template-columns: 2fr 1fr;
             gap: 40px;
         }
 
@@ -286,78 +286,102 @@
 
         <div id="projects-section" class="page-section">
             <h1>Projects</h1>
-            <h2>Terminal Sandwich Shop</h2>
-            <p>Run my Python sandwich ordering system right here in the browser! Click inside the black box below to interact with the code.</p>
+            <h2>Interactive Sandwich Shop</h2>
+            <p>Click the button below to run my Python ordering system! It will use browser prompts to ask you for your order.</p>
             
-            <script type="py" terminal worker>
-Food = input("What type of sandwich do you want?\n chicken for $5.25,\n beef for $6.25,\n tofu for $5.75 \n")
+            <button py-click="start_order">Start My Order</button>
+            
+            <div id="order-output" style="margin-top: 20px; font-weight: bold; white-space: pre-line; color: var(--dark-forest); background-color: white; padding: 15px; border-radius: 8px; border: 1px solid var(--soft-mint); display: none;"></div>
+            
+            <script type="py">
+                import js
+                from pyscript import document
 
-print("Confirming a " + Food + " sandwich")
+                # This helper function uses standard web pop-ups to get input, bypassing GitHub's restrictions
+                def get_input(prompt_text):
+                    ans = js.prompt(prompt_text)
+                    return ans if ans else ""
 
-if Food.lower() == "chicken":
-    SCost = "5.25"
-elif Food.lower() == "beef":
-    SCost = "6.25"
-else: 
-    SCost = "5.75"
-SYN = "1"
+                def start_order(event):
+                    # Show the receipt box
+                    output_box = document.getElementById("order-output")
+                    output_box.style.display = "block"
+                    output_box.innerText = "Taking order..."
+                    
+                    Food = get_input("What type of sandwich do you want?\n - chicken for $5.25\n - beef for $6.25\n - tofu for $5.75")
+                    
+                    if Food.lower() == "chicken":
+                        SCost = "5.25"
+                    elif Food.lower() == "beef":
+                        SCost = "6.25"
+                    else: 
+                        SCost = "5.75"
+                    SYN = "1"
 
-Drink = input("Do you want a drink? (yes/no)\n")
-if Drink.lower() == "yes":
-    Type = input("What drink?\n -Coke \n -Pepsi\n")
-    Size = input("What size\n -Small drink for $1.00, \n -Medium drink for $1.75,\n -Large drink for $2.25 \n")
-    
-    if Size.lower() == "small":
-        SiCost = "1.00"
-    elif Size.lower() == "medium":
-        SiCost = "1.75"
-    else: 
-        SiCost = "2.25"
-        
-    print("Confirming a " + Size + " " + Type + " with a " + Food + " sandwich")
-    DYN = "1"
-else:
-    print("Your order consists of a " + Food + " sandwich")
-    SiCost = "0"
-    Size = "no drink"
-    Type = ""
-    DYN = "0"
- 
-Fries = input("Would you like Fries? (yes/no)\n")
-if Fries.lower() == "yes":
-    FSize = input("What size\n -Small fries for $1.00, \n -Medium fries for $1.50,\n -Large fries for $2.00 \n")
-    
-    if FSize.lower() == "small":
-        Ssize = input("Would you like to mega size your fries, for a $2.00? (yes/no)\n")
-        if Ssize.lower() == "yes":
-            FCost = "2.00" 
-        else: 
-            FCost = "1.00"
-    elif FSize.lower() == "medium":
-        FCost = "1.50"
-    else: 
-        FCost = "2.00"
-        
-    print("Confirming " + FSize + " fries with a " + Food + " sandwich, " + Size + " " + Type)
-    FYN = "1"
-else: 
-    FCost = "0"
-    FYN = "0"
-    FSize = "no"
-    print("Your order consists of a " + Food + " sandwich, " + FSize + " fries, " + Size + " " + Type)
+                    Drink = get_input("Do you want a drink? (yes/no)")
+                    if Drink.lower() == "yes":
+                        Type = get_input("What drink?\n - Coke \n - Pepsi")
+                        Size = get_input("What size?\n - Small drink for $1.00 \n - Medium drink for $1.75 \n - Large drink for $2.25")
+                        
+                        if Size.lower() == "small":
+                            SiCost = "1.00"
+                        elif Size.lower() == "medium":
+                            SiCost = "1.75"
+                        else: 
+                            SiCost = "2.25"
+                            
+                        DYN = "1"
+                    else:
+                        SiCost = "0"
+                        Size = "no"
+                        Type = "drink"
+                        DYN = "0"
+                     
+                    Fries = get_input("Would you like Fries? (yes/no)")
+                    if Fries.lower() == "yes":
+                        FSize = get_input("What size?\n - Small fries for $1.00 \n - Medium fries for $1.50 \n - Large fries for $2.00")
+                        
+                        if FSize.lower() == "small":
+                            Ssize = get_input("Would you like to mega size your fries for $2.00? (yes/no)")
+                            if Ssize.lower() == "yes":
+                                FCost = "2.00" 
+                            else: 
+                                FCost = "1.00"
+                        elif FSize.lower() == "medium":
+                            FCost = "1.50"
+                        else: 
+                            FCost = "2.00"
+                            
+                        FYN = "1"
+                    else: 
+                        FCost = "0"
+                        FYN = "0"
+                        FSize = "no fries"
 
-Ketchup = input("How many ketchup packets for $0.25 each do you want?\n")
-if Ketchup.isdigit():
-    KCost = (float(Ketchup) * 0.25)
-    total = float(SCost) + float(SiCost) + float(FCost) + float(KCost)
-    MDeal = float(SYN) + float(DYN) + float(FYN)
-    
-    if MDeal == 3:
-        total = total - 1
-        
-    print("Confirming " + FSize + " fries with a " + Food + " sandwich, " + Size + " " + Type + ", " + Ketchup + " packets of ketchup for a total of $" + str(total))
-else:
-    print("Invalid input. Please restart and input a valid number of Ketchup packets.")
+                    Ketchup = get_input("How many ketchup packets for $0.25 each do you want?")
+                    
+                    if Ketchup.isdigit():
+                        KCost = (float(Ketchup) * 0.25)
+                        total = float(SCost) + float(SiCost) + float(FCost) + float(KCost)
+                        MDeal = float(SYN) + float(DYN) + float(FYN)
+                        
+                        # Apply meal deal discount
+                        if MDeal == 3:
+                            total = total - 1
+                            
+                        # Build the final receipt
+                        receipt = (
+                            f"✅ ORDER CONFIRMED:\n"
+                            f"• {Food} sandwich\n"
+                            f"• {Size} {Type}\n"
+                            f"• {FSize}\n"
+                            f"• {Ketchup} packets of ketchup\n"
+                            f"----------------------\n"
+                            f"TOTAL: ${total:.2f}"
+                        )
+                        output_box.innerText = receipt
+                    else:
+                        output_box.innerText = "❌ Invalid input. Please click 'Start My Order' to try again."
             </script>
         </div>
 
